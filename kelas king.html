@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Online Sederhana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        header {
+            background: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 200px;
+        }
+
+        .cart h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .cart-items div {
+            margin-bottom: 5px;
+        }
+
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Toko Online Sederhana</h1>
+</header>
+
+<div class="container" id="products"></div>
+
+<div class="cart" id="cart">
+    <h2>Keranjang Belanja</h2>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="total" id="total">Total: Rp0</div>
+</div>
+
+<script>
+    const products = [
+        {name: "Baju", price: 150000},
+        {name: "Celana", price: 200000},
+        {name: "Sepatu", price: 300000},
+        {name: "Topi", price: 50000}
+    ];
+
+    const cart = [];
+
+    function renderProducts() {
+        const container = document.getElementById("products");
+        container.innerHTML = "";
+        products.forEach((product, index) => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Rp${product.price.toLocaleString()}</p>
+                <button onclick="addToCart(${index})">Tambah ke Keranjang</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function addToCart(index) {
+        cart.push(products[index]);
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartItems = document.getElementById("cartItems");
+        const total = document.getElementById("total");
+        cartItems.innerHTML = "";
+        let sum = 0;
+        cart.forEach(item => {
+            const div = document.createElement("div");
+            div.textContent = `${item.name} - Rp${item.price.toLocaleString()}`;
+            cartItems.appendChild(div);
+            sum += item.price;
+        });
+        total.textContent = `Total: Rp${sum.toLocaleString()}`;
+    }
+
+    renderProducts();
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Online Sederhana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        header {
+            background: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 250px;
+        }
+
+        .cart h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .cart-items {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            background: #e9f5ee;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            align-items: center;
+        }
+
+        .cart-item input {
+            width: 40px;
+            text-align: center;
+            margin-right: 5px;
+        }
+
+        .cart-item button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Toko Online Sederhana</h1>
+</header>
+
+<div class="container" id="products"></div>
+
+<div class="cart" id="cart">
+    <h2>Keranjang Belanja</h2>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="total" id="total">Total: Rp0 | Item: 0</div>
+</div>
+
+<script>
+    const products = [
+        {name: "Baju", price: 150000},
+        {name: "Celana", price: 200000},
+        {name: "Sepatu", price: 300000},
+        {name: "Topi", price: 50000}
+    ];
+
+    const cart = [];
+
+    function renderProducts() {
+        const container = document.getElementById("products");
+        container.innerHTML = "";
+        products.forEach((product, index) => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Rp${product.price.toLocaleString()}</p>
+                <button onclick="addToCart(${index})">Tambah ke Keranjang</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function addToCart(index) {
+        const product = products[index];
+        // Cek apakah produk sudah ada di keranjang
+        const existing = cart.find(item => item.name === product.name);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({...product, qty: 1});
+        }
+        renderCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    function updateQty(index, value) {
+        const qty = parseInt(value);
+        if (qty <= 0 || isNaN(qty)) {
+            cart.splice(index, 1);
+        } else {
+            cart[index].qty = qty;
+        }
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartItems = document.getElementById("cartItems");
+        const totalDiv = document.getElementById("total");
+        cartItems.innerHTML = "";
+        let sum = 0;
+        let totalItems = 0;
+
+        cart.forEach((item, index) => {
+            const div = document.createElement("div");
+            div.className = "cart-item";
+            div.innerHTML = `
+                <span>${item.name} - Rp${item.price.toLocaleString()}</span>
+                <div>
+                    <input type="number" value="${item.qty}" min="1" onchange="updateQty(${index}, this.value)">
+                    <button onclick="removeFromCart(${index})">X</button>
+                </div>
+            `;
+            cartItems.appendChild(div);
+            sum += item.price * item.qty;
+            totalItems += item.qty;
+        });
+
+        totalDiv.textContent = `Total: Rp${sum.toLocaleString()} | Item: ${totalItems}`;
+    }
+
+    renderProducts();
+</script>
+
+</body>
+</html>
